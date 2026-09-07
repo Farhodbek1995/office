@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="add_column">+ Столбец</string>
+    <string name="add_row">+ Строка</string>
+    <string name="app_name">Office Pro</string>
+    <string name="auto_sum">Авто-Сумма</string>
+    <string name="btn_discard">Отклонить</string>
+    <string name="btn_restore">Восстановить документ</string>
+    <string msgid="881409763997275156" name="call_notification_answer_action">"Ответить"</string>
+    <string msgid="8793775615905189152" name="call_notification_answer_video_action">"Видео"</string>
+    <string msgid="3229508546291798546" name="call_notification_decline_action">"Отклонить"</string>
+    <string msgid="2659457946726154263" name="call_notification_hang_up_action">"Завершить"</string>
+    <string msgid="6107532579223922871" name="call_notification_incoming_text">"Входящий вызов"</string>
+    <string msgid="8623827134497363134" name="call_notification_ongoing_text">"Текущий вызов"</string>
+    <string msgid="59049573811482460" name="call_notification_screening_text">"Фильтрация входящего вызова"</string>
+    <string name="card_docx_sub">Отчеты, заявления и статьи</string>
+    <string name="card_pdf_sub">Отрисовка PDFium и заметки/подпись</string>
+    <string name="card_xlsx_sub">Бюджет, формулы и виртуальная сетка</string>
+    <string msgid="406453423630273620" name="close_drawer">"Закрыть меню навигации"</string>
+    <string msgid="7573152094250666567" name="close_sheet">"Закрыть лист"</string>
+    <string name="dashboard_hero_sub">Полностью автономный офисный редактор на базе LibreOffice Core и PDFium</string>
+    <string name="dashboard_hero_title">Профессиональный Android Office</string>
+    <string msgid="8038256446254964252" name="default_error_message">"Неправильный ввод"</string>
+    <string msgid="6312721426453364202" name="default_popup_window_title">"Всплывающее окно"</string>
+    <string name="device_mode">Режим устройства:</string>
+    <string msgid="1890207353314751437" name="dropdown_menu">"Раскрывающееся меню"</string>
+    <string name="filter_all">Все</string>
+    <string name="formula_bar_hint">Введите формулу (напр. =SUM(B2:B5) или значение)</string>
+    <string msgid="6827826412747255547" name="in_progress">"Выполняется"</string>
+    <string msgid="7933458017204019916" name="indeterminate">"Отмечено частично"</string>
+    <string name="insert_table">Вставить таблицу</string>
+    <string msgid="2988463736136100848" name="m3c_bottom_sheet_collapse_description">"Свернуть нижний экран"</string>
+    <string msgid="1555567894577437024" name="m3c_bottom_sheet_dismiss_description">"Закрыть нижний экран"</string>
+    <string msgid="8403354765404029791" name="m3c_bottom_sheet_drag_handle_description">"Маркер перемещения"</string>
+    <string msgid="6670819569745899763" name="m3c_bottom_sheet_expand_description">"Развернуть нижний экран"</string>
+    <string msgid="3010635850035863127" name="m3c_bottom_sheet_pane_title">"Нижний экран"</string>
+    <string msgid="8166741421776570875" name="m3c_date_input_headline">"Введенная дата"</string>
+    <string msgid="229313757840775812" name="m3c_date_input_headline_description">"Введенная дата: %1$s"</string>
+    <string msgid="6116910750161463197" name="m3c_date_input_invalid_for_pattern">"Дата не соответствует допустимому шаблону: %1$s"</string>
+    <string msgid="2521768508935305279" name="m3c_date_input_invalid_not_allowed">"Недопустимая дата: %1$s"</string>
+    <string msgid="7052898923934555305" name="m3c_date_input_invalid_year_range">"Дата не входит в допустимый диапазон: %1$s–%2$s"</string>
+    <string msgid="2895559812010326913" name="m3c_date_input_label">"Дата"</string>
+    <string msgid="1237013946323089826" name="m3c_date_input_no_input_description">"Нет"</string>
+    <string msgid="7306227249789210568" name="m3c_date_input_title">"Выберите дату"</string>
+    <string msgid="7605002211875882969" name="m3c_date_picker_headline">"Выбранная дата"</string>
+    <string msgid="3664277305226978227" name="m3c_date_picker_headline_description">"Текущий выбор: %1$s"</string>
+    <string msgid="8436650776581492840" name="m3c_date_picker_navigate_to_year_description">"Переход к %1$s году"</string>
+    <string msgid="5811000998184572395" name="m3c_date_picker_no_selection_description">"Нет"</string>
+    <string msgid="7813882352367152251" name="m3c_date_picker_scroll_to_earlier_years">"Прокрутите до более ранних лет"</string>
+    <string msgid="5727367015496556177" name="m3c_date_picker_scroll_to_later_years">"Прокрутите до более поздних лет"</string>
+    <string msgid="1804346892470238807" name="m3c_date_picker_switch_to_calendar_mode">"Перейти в режим выбора даты"</string>
+    <string msgid="395627960681594326" name="m3c_date_picker_switch_to_day_selection">"Проведите по экрану, чтобы выбрать год, или нажмите, чтобы вернуться к выбору дня."</string>
+    <string msgid="2219746470065162704" name="m3c_date_picker_switch_to_input_mode">"Перейти в режим ввода текста"</string>
+    <string msgid="7142101321095356500" name="m3c_date_picker_switch_to_next_month">"Перейти к следующему месяцу"</string>
+    <string msgid="228438865139394590" name="m3c_date_picker_switch_to_previous_month">"Перейти к предыдущему месяцу"</string>
+    <string msgid="791651718641787594" name="m3c_date_picker_switch_to_year_selection">"Перейти к выбору года"</string>
+    <string msgid="7430790972741451689" name="m3c_date_picker_title">"Выберите дату"</string>
+    <string msgid="3199387177749801575" name="m3c_date_picker_today_description">"Сегодня"</string>
+    <string msgid="2068382232816991922" name="m3c_date_picker_year_picker_pane_title">"Отображаемый выбор года"</string>
+    <string msgid="3190049423327661366" name="m3c_date_range_input_invalid_range_input">"Указан недопустимый диапазон дат."</string>
+    <string msgid="3148384720560189467" name="m3c_date_range_input_title">"Введите даты"</string>
+    <string msgid="2138321128465719402" name="m3c_date_range_picker_day_in_range">"День в диапазоне дат"</string>
+    <string msgid="4947636797751277713" name="m3c_date_range_picker_end_headline">"Конечная дата"</string>
+    <string msgid="602077859540990149" name="m3c_date_range_picker_scroll_to_next_month">"Прокрутите до следующего месяца"</string>
+    <string msgid="4592174524846109496" name="m3c_date_range_picker_scroll_to_previous_month">"Прокрутите до предыдущего месяца"</string>
+    <string msgid="4665981448952749820" name="m3c_date_range_picker_start_headline">"Начальная дата"</string>
+    <string msgid="3134165431120340385" name="m3c_date_range_picker_title">"Выберите даты"</string>
+    <string msgid="7617233117134790350" name="m3c_dialog">"Диалоговое окно"</string>
+    <string msgid="3177828188723359358" name="m3c_dropdown_menu_collapsed">"Свернуто"</string>
+    <string msgid="2360841780724299882" name="m3c_dropdown_menu_expanded">"Развернуто"</string>
+    <string msgid="8687821690726149911" name="m3c_dropdown_menu_toggle">"Показать или скрыть раскрывающееся меню"</string>
+    <string msgid="6152806324422087846" name="m3c_search_bar_search">"Строка поиска"</string>
+    <string msgid="6152755701819882931" name="m3c_snackbar_dismiss">"Закрыть"</string>
+    <string msgid="7655536806087401899" name="m3c_suggestions_available">"Подсказки показаны ниже"</string>
+    <string msgid="2786685010796619560" name="m3c_time_picker_am">"AM"</string>
+    <string msgid="2349193472625211372" name="m3c_time_picker_hour">"Часы"</string>
+    <string msgid="9179527532316922345" name="m3c_time_picker_hour_24h_suffix">"%1$d ч."</string>
+    <string msgid="8876759303332837035" name="m3c_time_picker_hour_selection">"Выбрать час"</string>
+    <string msgid="3458167507790628988" name="m3c_time_picker_hour_suffix">"%1$d ч."</string>
+    <string msgid="6973808109666874069" name="m3c_time_picker_hour_text_field">"часы"</string>
+    <string msgid="4313071914266462005" name="m3c_time_picker_minute">"Минуты"</string>
+    <string msgid="4699133535056739733" name="m3c_time_picker_minute_selection">"Выберите минуты"</string>
+    <string msgid="5064177921781937179" name="m3c_time_picker_minute_suffix">"%1$d мин."</string>
+    <string msgid="7661234488295443182" name="m3c_time_picker_minute_text_field">"минуты"</string>
+    <string msgid="5865171949528594571" name="m3c_time_picker_period_toggle_description">"Выбрать AM (до полудня) или PM (после полудня)"</string>
+    <string msgid="6616362054113087709" name="m3c_time_picker_pm">"PM"</string>
+    <string msgid="1805687647081129904" name="m3c_tooltip_long_press_label">"Показать подсказку"</string>
+    <string msgid="5460405025248574620" name="m3c_tooltip_pane_description">"Подсказка"</string>
+    <string name="mode_mobile">Телефон</string>
+    <string name="mode_tablet">Планшет</string>
+    <string name="nav_docx">Word (DOCX)</string>
+    <string name="nav_home">Главная</string>
+    <string name="nav_pdf">Просмотр PDF</string>
+    <string name="nav_storage">Файлы SAF</string>
+    <string name="nav_xlsx">Excel (XLSX)</string>
+    <string msgid="542007171693138492" name="navigation_menu">"Меню навигации"</string>
+    <string name="new_document">Новый документ</string>
+    <string name="new_pdf">Новый PDF</string>
+    <string name="new_spreadsheet">Новая таблица</string>
+    <string msgid="6610465462668679431" name="not_selected">"Не выбрано"</string>
+    <string name="open_saf">Открыть через SAF</string>
+    <string name="page_counter">Страница 1 из 3 • 142 слова • 100% Масштаб</string>
+    <string name="pdf_doc_badge">СТАНДАРТ РЕСПУБЛИКИ УЗБЕКИСТАН</string>
+    <string name="pdf_doc_date">Дата: 07 сентября 2026 г.</string>
+    <string name="pdf_doc_title">СЛУЖЕБНЫЙ АКТ № 9482-B</string>
+    <string name="pdf_highlight">Маркер</string>
+    <string name="pdf_note">Заметка</string>
+    <string name="pdf_pen">Перо</string>
+    <string name="pdf_sample_p1">Данный документ подтверждает кросс-компиляцию библиотеки PDFium и вывод страниц в виде кэшированных растровых изображений на Android.</string>
+    <string name="pdf_select">Выделение</string>
+    <string name="pdf_sig_placeholder">Область подписи (нажмите для подписи)</string>
+    <string name="pdf_sign">Подпись</string>
+    <string name="pdf_signed_badge">✓ ПОДТВЕРЖДЕНО И ПОДПИСАНО - 2026</string>
+    <string msgid="5941395253238309765" name="range_end">"Конец диапазона"</string>
+    <string msgid="7097486360902471446" name="range_start">"Начало диапазона"</string>
+    <string name="recent_files">Недавние файлы</string>
+    <string name="recent_sub">Локальные файлы в кэше Room Database</string>
+    <string name="recovery_body">Приложение могло неожиданно закрыться. В кэше автосохранения сохранилось последнее состояние:</string>
+    <string name="recovery_title">Crash Recovery — Найден восстановленный черновик!</string>
+    <string name="redo">Повторить</string>
+    <string name="saf_create_doc">ACTION_CREATE_DOCUMENT</string>
+    <string name="saf_create_sub">Создание нового пустого документа с постоянным системным разрешением</string>
+    <string name="saf_open_doc">ACTION_OPEN_DOCUMENT</string>
+    <string name="saf_open_sub">Выбор любого файла DOCX, XLSX или PDF из памяти телефона</string>
+    <string name="saf_persisted">Постоянное (Persisted)</string>
+    <string name="saf_sub">Разделы 7 и 28 reja.txt: Без лишних разрешений, работа только с выбранными файлами через content:// URI.</string>
+    <string name="saf_table_title">Активные постоянные разрешения (takePersistableUriPermission)</string>
+    <string name="saf_title">Безопасная файловая система (SAF)</string>
+    <string name="saf_tree_doc">ACTION_OPEN_DOCUMENT_TREE</string>
+    <string name="saf_tree_sub">Доступ к целой папке через takePersistableUriPermission</string>
+    <string name="sample_docx_h1">1. Основы архитектуры и LibreOfficeKit</string>
+    <string name="sample_docx_note_p">При открытии больших файлов DOCX (100 МБ) весь файл не загружается целиком в оперативную память. Вместо этого он отображается фрагментами через SurfaceView и Tile Rendering.</string>
+    <string name="sample_docx_note_title">Критическое правило (reja.txt 2.4):</string>
+    <string name="sample_docx_p1">Данный документ отображается в соответствии с принципами чистой архитектуры (Clean Architecture) и независимости движка, описанными в reja.txt. Работает на 100% оффлайн через Kotlin JNI и LibreOfficeKit.</string>
+    <string name="sample_docx_table_h">2. Таблица этапов реализации</string>
+    <string name="sample_docx_title">План инновационного проекта Республики Узбекистан</string>
+    <string name="sample_docx_type">Тип документа: Профессиональная платформа Android Office (DOCX Engine)</string>
+    <string name="save">Сохранить</string>
+    <string name="saved_status">Сохранено (Автосохранение)</string>
+    <string name="saving_status">Сохранение...</string>
+    <string name="search_placeholder">Поиск документов, текста или формул...</string>
+    <string msgid="6043586758067023" name="selected">"Выбрано"</string>
+    <string name="share">Поделиться</string>
+    <string name="sheet1_tab">Лист 1 (Бюджет)</string>
+    <string name="sheet2_tab">Лист 2 (Прогноз)</string>
+    <string msgid="4139871816613051306" name="state_empty">"Пусто"</string>
+    <string msgid="5834637030682409883" name="state_off">"Отключено"</string>
+    <string msgid="1490883874751719580" name="state_on">"Включено"</string>
+    <string name="status_active">Активно</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">">999"</string>
+    <string name="status_poc">В этапе PoC</string>
+    <string name="status_ready">Готово</string>
+    <string name="sum_label">Сумма выбранного:</string>
+    <string msgid="2561197295334830845" name="switch_role">"Переключатель"</string>
+    <string msgid="1672349317127674378" name="tab">"Вкладка"</string>
+    <string name="tab_home">Главная</string>
+    <string name="tab_insert">Вставка</string>
+    <string name="tab_layout">Разметка</string>
+    <string name="tab_view">Вид</string>
+    <string name="tag_offline">Автономный движок</string>
+    <string msgid="5946805113151406391" name="template_percent">"Процентов: <ns1:g id="PERCENTAGE">%1$d</ns1:g>."</string>
+    <string name="th_engine">Движок</string>
+    <string name="th_memory">Лимит памяти</string>
+    <string name="th_module">Модуль</string>
+    <string name="th_status">Статус</string>
+    <string name="theme_dark">Тёмная тема</string>
+    <string name="theme_light">Светлая тема</string>
+    <string msgid="3765533235322692011" name="tooltip_description">"Подсказка"</string>
+    <string msgid="3124740595719787496" name="tooltip_label">"Показать подсказку"</string>
+    <string name="undo">Отменить</string>
+    <string name="virtual_grid_indicator">⚡ Виртуальная сетка (до 1 000 000 строк)</string>
+</resources>

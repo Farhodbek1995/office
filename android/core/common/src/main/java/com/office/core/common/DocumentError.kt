@@ -15,5 +15,5 @@ sealed class DocumentError : Exception() {
     data object SaveFailed : DocumentError()
     data object EmptyDocument : DocumentError()
 
-    data class Generic(val message: String) : DocumentError()
+    data class Generic(override val message: String) : DocumentError()
 }
