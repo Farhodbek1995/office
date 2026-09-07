@@ -1,0 +1,1397 @@
+Professional Android Office — To‘liq Loyiha Rejasi
+1. Loyiha maqsadi
+
+Android uchun professional Office ilovasi yaratish.
+
+Ilova quyidagi formatlarni ochishi, ko‘rsatishi, tahrirlashi va saqlashi kerak:
+
+.doc
+.docx
+.xls
+.xlsx
+.pdf
+keyinchalik .ppt/.pptx
+
+Asosiy maqsad:
+
+WPS Office / Microsoft Office Mobile darajasiga yaqin foydalanuvchi tajribasiga ega, imkon qadar open-source va modulli Android Office platformasi yaratish.
+
+Loyiha birinchi versiyadanoq barcha funksiyalarni amalga oshirmaydi. Avval mustahkam engine va arxitektura yaratiladi, keyin funksiyalar bosqichma-bosqich qo‘shiladi.
+
+2. Asosiy prinsiplar
+
+Loyiha quyidagi prinsiplar asosida quriladi:
+
+2.1 Open-source first
+
+Birinchi tanlov:
+
+LibreOffice / Collabora ekotizimi
+Android native API
+PDFium yoki Android PdfRenderer
+Kotlin
+Jetpack
+open-source kutubxonalar
+
+Commercial SDK faqat zarur bo‘lsa fallback sifatida ko‘rib chiqiladi.
+
+2.2 Engine mustaqilligi
+
+UI:
+
+Compose
+
+biznes logika:
+
+Domain
+
+fayl tizimi:
+
+SAF
+
+document engine:
+
+LibreOffice / boshqa engine
+
+bir-biriga qattiq bog‘lanmaydi.
+
+2.3 Offline-first
+
+Internet bo‘lmasa ham:
+
+DOCX ochish
+XLSX ochish
+PDF ko‘rish
+tahrirlash
+saqlash
+
+ishlashi kerak.
+
+2.4 Katta fayllarga tayyor
+
+Masalan:
+
+100 MB DOCX
+50 MB XLSX
+500 MB PDF
+
+kabi fayllarda ilova imkon qadar crash qilmasligi kerak.
+
+3. Texnologik stack
+Qism	Texnologiya
+Til	Kotlin
+UI	Jetpack Compose
+Architecture	Clean Architecture
+Pattern	MVVM
+DI	Hilt
+Async	Coroutines + Flow
+Navigation	Navigation Compose
+Storage	SAF
+Database	Room
+Settings	DataStore
+PDF	Android PdfRenderer / PDFium
+DOCX/XLSX	LibreOffice/Collabora engine
+Native integration	JNI
+Native build	CMake + NDK
+Images	Coil
+Logging	Timber
+Unit test	JUnit
+Mocking	MockK
+UI test	Compose UI Test
+Build	Gradle Kotlin DSL
+Version control	Git
+4. Loyiha modullari
+
+Tavsiya qilinadigan strukturasi:
+
+OfficeAndroid/
+│
+├── app/
+│
+├── core/
+│   ├── common/
+│   ├── ui/
+│   ├── filesystem/
+│   ├── security/
+│   └── database/
+│
+├── domain/
+│   ├── document/
+│   ├── spreadsheet/
+│   ├── pdf/
+│   └── file/
+│
+├── data/
+│   ├── repository/
+│   ├── datasource/
+│   ├── database/
+│   └── model/
+│
+└── document-engine/
+    │
+    ├── engine-api/
+    │
+    ├── libreoffice-engine/
+    │
+    └── pdf-engine/
+5. app moduli
+
+Bu Android ilovaning asosiy moduli.
+
+app/
+├── src/main/java/
+│
+├── presentation/
+│   ├── home/
+│   ├── filebrowser/
+│   ├── editor/
+│   ├── spreadsheet/
+│   ├── pdf/
+│   ├── settings/
+│   └── components/
+│
+├── navigation/
+│
+├── di/
+│
+└── MainActivity.kt
+
+Bu yerda UI va ViewModel'lar joylashadi.
+
+6. Home Screen
+
+Birinchi ekran:
+
+┌──────────────────────────────┐
+│        Office                 │
+│                              │
+│  + New Document              │
+│  + New Spreadsheet           │
+│  + New PDF                   │
+│                              │
+│  Recent Files                │
+│  ─────────────────────       │
+│  📄 Report.docx              │
+│  📊 Budget.xlsx              │
+│  📕 Manual.pdf               │
+│                              │
+│  Open File                   │
+└──────────────────────────────┘
+
+Funksiyalar:
+
+Open
+New DOCX
+New XLSX
+New PDF
+Recent files
+Search
+Sort
+Settings
+7. Storage Access Framework
+
+Android fayl tizimi bilan ishlashning asosiy mexanizmi:
+
+Storage Access Framework
+
+Qo‘llab-quvvatlanadi:
+
+ACTION_OPEN_DOCUMENT
+ACTION_CREATE_DOCUMENT
+ACTION_OPEN_DOCUMENT_TREE
+
+Foydalanuvchi faylni tanlaydi.
+
+Ilova esa:
+
+content://...
+
+URI bilan ishlaydi.
+
+Muhim:
+
+takePersistableUriPermission()
+
+orqali imkon qadar persistent permission saqlanadi.
+
+FileSystemManager
+interface FileSystemManager {
+
+    suspend fun open(uri: Uri): InputStream
+
+    suspend fun save(
+        uri: Uri,
+        data: ByteArray
+    )
+
+    suspend fun create(
+        name: String,
+        mimeType: String
+    ): Uri
+}
+
+Lekin katta fayllarda ByteArray ishlatishdan qochiladi.
+
+Streaming API:
+
+InputStream
+OutputStream
+
+ustuvor bo‘ladi.
+
+8. Domain Layer
+
+Domain UI yoki Android API'ga bog‘lanmasligi kerak.
+
+Masalan:
+
+domain/document/
+├── OpenDocumentUseCase
+├── SaveDocumentUseCase
+├── SaveAsDocumentUseCase
+├── ExportDocumentUseCase
+├── CloseDocumentUseCase
+└── GetDocumentInfoUseCase
+
+Spreadsheet:
+
+domain/spreadsheet/
+├── OpenSpreadsheetUseCase
+├── SaveSpreadsheetUseCase
+├── EditCellUseCase
+├── InsertRowUseCase
+├── DeleteRowUseCase
+└── CalculateFormulaUseCase
+
+PDF:
+
+domain/pdf/
+├── OpenPdfUseCase
+├── RenderPageUseCase
+├── SearchPdfUseCase
+├── AddAnnotationUseCase
+└── SavePdfUseCase
+9. Document Engine — loyihaning yuragi
+
+Eng muhim qatlam:
+
+document-engine/
+
+Uning API'si Android UI'dan mustaqil bo‘ladi.
+
+Masalan:
+
+interface DocumentEngine {
+
+    suspend fun open(
+        source: DocumentSource
+    ): DocumentSession
+
+    suspend fun save(
+        session: DocumentSession,
+        destination: DocumentDestination
+    )
+
+    suspend fun export(
+        session: DocumentSession,
+        format: DocumentFormat,
+        destination: DocumentDestination
+    )
+
+    suspend fun close(
+        session: DocumentSession
+    )
+}
+10. Engine API
+
+Formatlarni umumlashtirish:
+
+enum class DocumentFormat {
+    DOC,
+    DOCX,
+    XLS,
+    XLSX,
+    PDF
+}
+
+Source:
+
+sealed interface DocumentSource {
+
+    data class UriSource(
+        val uri: Uri
+    ) : DocumentSource
+
+    data class FileSource(
+        val file: File
+    ) : DocumentSource
+}
+
+Session:
+
+interface DocumentSession {
+
+    val id: String
+    val format: DocumentFormat
+
+    suspend fun save()
+
+    suspend fun close()
+}
+
+Shu sababli UI:
+
+Compose
+   ↓
+ViewModel
+   ↓
+UseCase
+   ↓
+DocumentRepository
+   ↓
+DocumentEngine
+
+ko‘rinishida ishlaydi.
+
+11. LibreOffice Engine
+
+Asosiy DOCX/XLSX engine:
+
+LibreOffice / LibreOfficeKit
+
+Bu qism:
+
+document-engine/
+└── libreoffice-engine/
+
+ichida bo‘ladi.
+
+Native qism:
+
+C/C++
+
+Android wrapper:
+
+Kotlin
+
+bog‘lanishi:
+
+Kotlin
+   ↓
+JNI
+   ↓
+LibreOfficeKit
+   ↓
+LibreOffice Core
+12. Engine Proof-of-Concept
+
+Bu loyiha uchun eng birinchi texnik milestonelardan biri.
+
+Darhol katta editor yozilmaydi.
+
+Avval quyidagi PoC ishlashi kerak:
+
+Android
+   ↓
+Open DOCX
+   ↓
+LibreOffice Engine
+   ↓
+Render
+   ↓
+Android Surface
+
+Keyin:
+
+Edit
+   ↓
+Save
+   ↓
+DOCX
+
+Xuddi shunday XLSX.
+
+Agar bu PoC muvaffaqiyatli bo‘lsa, asosiy arxitektura tasdiqlanadi.
+
+13. PDF Engine
+
+PDF uchun birinchi MVP:
+
+Android PdfRenderer
+
+Keyinchalik:
+
+PDFium
+
+yoki zaruratga qarab boshqa open-source engine.
+
+PDF viewer:
+
+page rendering
+zoom
+pan
+page navigation
+search
+rotation
+thumbnails
+
+Keyinchalik:
+
+highlight
+drawing
+text annotation
+signature
+comments
+form filling
+14. DOCX Editor
+
+DOCX editor bosqichma-bosqich yaratiladi.
+
+MVP
+open
+render
+text selection
+typing
+delete
+undo
+redo
+save
+Formatting
+Bold
+Italic
+Underline
+Font
+Font size
+Font color
+Alignment
+Line spacing
+Paragraph spacing
+Advanced
+bullet list
+numbered list
+tables
+images
+hyperlinks
+header
+footer
+page numbers
+margins
+page orientation
+15. DOCX rendering
+
+Asosiy talab:
+
+Foydalanuvchi ekranda ko‘rgan hujjat Word'dagi ko‘rinishiga maksimal darajada yaqin bo‘lishi kerak.
+
+Shuning uchun oddiy:
+
+DOCX → HTML → WebView
+
+variantini asosiy production engine qilmaslik kerak.
+
+Bu faqat prototip uchun ishlatilishi mumkin.
+
+Production:
+
+DOCX
+ ↓
+LibreOffice
+ ↓
+Layout Engine
+ ↓
+Rendered document
+ ↓
+Android
+16. XLSX Editor
+
+Spreadsheet UI quyidagicha:
+
+┌─────────────────────────────┐
+│ A1      Formula Bar         │
+├────┬────┬────┬────┬─────────┤
+│    │ A  │ B  │ C  │ D       │
+├────┼────┼────┼────┼─────────┤
+│ 1  │ 10 │ 20 │ 30 │ 40      │
+│ 2  │ 15 │ 25 │ 35 │ 45      │
+│ 3  │    │    │    │         │
+└────┴────┴────┴────┴─────────┘
+MVP
+open XLSX
+sheets
+cell selection
+cell editing
+formula input
+save
+Key features
+formulas
+copy/paste
+cut
+undo/redo
+row/column insert
+row/column delete
+resize
+merge cells
+formatting
+Advanced
+charts
+conditional formatting
+filters
+freeze panes
+data validation
+named ranges
+17. Spreadsheet rendering arxitekturasi
+
+Bu yerda oddiy RecyclerView bilan butun Excel'ni chizish noto‘g‘ri.
+
+Katta jadval uchun:
+
+Virtualized Grid
+
+kerak.
+
+Masalan:
+
+1,000,000 rows
+
+bo‘lsa, barchasini Android view sifatida yaratish mumkin emas.
+
+Faqat ekranda ko‘rinayotgan:
+
+20–50 rows
+
+render qilinadi.
+
+Bu:
+
+Lazy rendering
+Virtual scrolling
+Cell virtualization
+
+asosida ishlaydi.
+
+18. PDF Annotation
+
+PDF'ni to‘g‘ridan-to‘g‘ri bitmapga chizib qo‘yish emas, imkon qadar PDF annotation modelidan foydalanish kerak.
+
+Masalan:
+
+Highlight
+Underline
+Freehand
+Text
+Rectangle
+Arrow
+Signature
+
+Annotation layer:
+
+PDF Page
+   +
+Annotation Layer
+
+bo‘ladi.
+
+19. Undo / Redo tizimi
+
+Professional editor uchun juda muhim.
+
+Markazlashtirilgan:
+
+interface Command {
+
+    fun execute()
+
+    fun undo()
+}
+
+va:
+
+UndoManager
+├── undoStack
+└── redoStack
+
+ishlatish mumkin.
+
+Masalan:
+
+User types
+ ↓
+Command
+ ↓
+Document Engine
+ ↓
+Undo Stack
+20. Autosave
+
+Professional ilovada autosave bo‘lishi kerak.
+
+Masalan:
+
+User edits
+    ↓
+Debounce 2–5 sec
+    ↓
+Temporary state
+    ↓
+Autosave
+
+Lekin original faylni har bir klaviatura bosilishida yozish mumkin emas.
+
+21. Crash Recovery
+
+Ilova kutilmaganda yopilsa:
+
+Draft
+Temporary file
+Recovery metadata
+
+saqlanadi.
+
+Keyingi ishga tushishda:
+
+Recovered document found
+Restore?
+
+ko‘rsatiladi.
+
+22. Recent Files
+
+Room:
+
+RecentFileEntity
+
+maydonlari:
+
+id
+uri
+name
+mimeType
+lastOpened
+lastModified
+thumbnail
+
+bo‘lishi mumkin.
+
+Recent files:
+
+RecentFilesRepository
+
+orqali olinadi.
+
+23. Thumbnail tizimi
+
+Home ekranida:
+
+📄 document
+📊 spreadsheet
+📕 pdf
+
+preview ko‘rsatiladi.
+
+Thumbnail cache:
+
+Room metadata
++
+Disk cache
+
+orqali ishlaydi.
+
+Katta fayllarni har safar qayta render qilishga yo‘l qo‘yilmaydi.
+
+24. File Manager
+
+Foydalanuvchi:
+
+Open
+Rename
+Delete
+Share
+Copy
+Move
+Save As
+
+amallarini bajarishi mumkin.
+
+Lekin Android storage modelidagi cheklovlar hisobga olinadi.
+
+25. Share
+
+Android:
+
+ACTION_SEND
+
+orqali.
+
+Masalan:
+
+DOCX
+ ↓
+Share
+ ↓
+Telegram / Gmail / WhatsApp / Drive
+26. Export
+
+Professional funksiyalar:
+
+DOCX → PDF
+XLSX → PDF
+DOCX → TXT
+DOCX → HTML
+
+Keyinchalik:
+
+XLSX → CSV
+
+ham qo‘shilishi mumkin.
+
+27. Print
+
+Android:
+
+PrintManager
+
+integratsiyasi.
+
+Qo‘llab-quvvatlash:
+
+PDF print
+DOCX print
+XLSX print
+28. Security
+
+Ilova quyidagilarni qilmasligi kerak:
+
+butun storage'ni ruxsatsiz scan qilish
+keraksiz permission olish
+fayllarni serverga yuborish
+
+Default:
+
+SAF
+
+orqali user tanlagan faylga ishlash.
+
+Sensitive temporary data:
+
+app-private storage
+
+ichida saqlanadi.
+
+29. Performance
+
+Performance boshidan rejalashtiriladi.
+
+DOCX
+lazy rendering
+background processing
+pagination
+cache
+XLSX
+cell virtualization
+lazy loading
+formula calculation background thread
+PDF
+page cache
+bitmap pooling
+tile rendering
+background rendering
+30. Threading
+
+UI thread'da:
+
+❌ DOCX parsing
+❌ XLSX parsing
+❌ PDF rendering
+❌ large file save
+
+bajarilmaydi.
+
+Bular:
+
+Dispatchers.IO
+Dispatchers.Default
+
+orqali bajariladi.
+
+31. Error handling
+
+Global:
+
+Result<T>
+
+yoki sealed error model.
+
+Masalan:
+
+sealed class DocumentError {
+
+    data object FileNotFound : DocumentError()
+
+    data object PermissionDenied : DocumentError()
+
+    data object UnsupportedFormat : DocumentError()
+
+    data object CorruptedDocument : DocumentError()
+
+    data object EngineError : DocumentError()
+
+    data object OutOfMemory : DocumentError()
+}
+
+UI foydalanuvchiga texnik exception emas, tushunarli xabar ko‘rsatadi.
+
+32. Logging
+
+Debug uchun:
+
+Timber
+
+Production'da esa maxfiy document ma'lumotlari log qilinmaydi.
+
+Masalan:
+
+❌ document content
+❌ passwords
+❌ full file paths if sensitive
+
+✅ engine initialization
+✅ rendering time
+✅ errors
+✅ memory warnings
+33. Test strategiyasi
+Unit tests
+UseCase
+Repository
+File manager
+Document format detection
+Undo/Redo
+Integration tests
+SAF
+Engine
+Save/load
+Export
+UI tests
+Open
+Edit
+Save
+Navigation
+Toolbar
+Spreadsheet cell editing
+Stress test
+10 MB
+50 MB
+100 MB
+250 MB
+500 MB
+
+fayllar.
+
+34. Phase 0 — Architecture & Research
+
+Maqsad: kod yozishdan oldin eng katta texnik riskni tekshirish.
+
+Vazifalar:
+
+Android project yaratish
+Git repository
+modular Gradle
+Compose
+Hilt
+Room
+DataStore
+engine-api
+PDF PoC
+LibreOffice engine research
+Eng muhim natija
+Can LibreOffice engine run on target Android devices?
+
+savoliga amaliy javob olish.
+
+35. Phase 1 — File Manager
+
+Taxminan 1–2 hafta
+
+Vazifalar:
+
+SAF
+Open
+Save
+Save As
+Create
+Recent files
+metadata
+permissions
+MIME detection
+
+Natija:
+
+Ilova har qanday qo‘llab-quvvatlanadigan faylni tanlab, ochish uchun engine'ga yubora oladi.
+
+36. Phase 2 — PDF MVP
+
+Taxminan 2–3 hafta
+
+Vazifalar:
+
+PDF open
+page render
+zoom
+pan
+page navigation
+thumbnails
+search
+rotation
+basic annotation
+
+Natija:
+
+To‘liq ishlaydigan PDF viewer.
+
+37. Phase 3 — LibreOffice Engine PoC
+
+Taxminan 3–6 hafta
+
+Bu eng muhim bosqichlardan biri.
+
+Vazifalar:
+
+LibreOffice source
+Android build
+NDK
+CMake
+JNI
+LibreOfficeKit
+native libraries
+Kotlin wrapper
+document loading
+rendering
+input events
+save
+
+Natija:
+
+Android
+ ↓
+JNI
+ ↓
+LibreOfficeKit
+ ↓
+DOCX/XLSX
+
+ishlashi kerak.
+
+38. Phase 4 — DOCX Editor MVP
+
+Taxminan 4–8 hafta
+
+Funksiyalar:
+
+open
+render
+cursor
+selection
+typing
+delete
+copy
+paste
+undo
+redo
+save
+
+Keyin:
+
+bold
+italic
+underline
+font
+size
+alignment
+39. Phase 5 — DOCX Advanced
+
+Taxminan 1–2 oy
+
+tables
+images
+hyperlinks
+lists
+headers
+footers
+page numbers
+margins
+orientation
+page breaks
+styles
+40. Phase 6 — XLSX MVP
+
+Taxminan 4–8 hafta
+
+workbook
+sheets
+cells
+cell editing
+formulas
+copy/paste
+insert/delete
+save
+41. Phase 7 — XLSX Advanced
+merge
+formatting
+borders
+colors
+row height
+column width
+freeze panes
+filters
+charts
+conditional formatting
+42. Phase 8 — Professional Office Features
+
+Taxminan 2–4 oy
+
+Autosave
+Crash recovery
+PDF export
+Print
+Share
+Document properties
+Search/replace
+spell checking
+templates
+bookmarks
+password-protected documents
+document encryption where engine supports it
+43. Phase 9 — Cloud
+
+Keyinchalik:
+
+Nextcloud
+Google Drive
+OneDrive
+Dropbox
+WebDAV
+
+integratsiyasi.
+
+Ayniqsa sizning loyihangiz uchun Nextcloud/WebDAV juda foydali bo‘lishi mumkin.
+
+Arxitektura:
+
+CloudStorage
+├── Local
+├── Nextcloud
+├── GoogleDrive
+├── OneDrive
+└── WebDAV
+
+bitta interface orqali boshqariladi.
+
+44. Phase 10 — Professional UX
+
+UI WPS Office'ga yaqinlashtiriladi.
+
+Mobile toolbar
+Undo | Redo | Bold | Italic | Underline
+Context toolbar
+
+Foydalanuvchi matnni belgilaganda:
+
+Copy
+Cut
+Bold
+Italic
+Color
+Comment
+Tablet
+
+Tablet uchun:
+
+Desktop-like toolbar
+
+ko‘rinishi.
+
+45. Responsive UI
+
+Telefon:
+
+Compact toolbar
+Bottom controls
+
+Tablet:
+
+Ribbon-like toolbar
+Side panels
+
+Foldable:
+
+Adaptive layout
+46. Dark Mode
+
+Compose Material 3.
+
+Qo‘llab-quvvatlash:
+
+System
+Light
+Dark
+47. Localization
+
+Birinchi:
+
+Uzbek
+Russian
+English
+
+Keyinchalik:
+
+Kazakh
+Turkish
+Korean
+Chinese
+48. AI funksiyalarini keyinchalik qo‘shish
+
+Bu asosiy engine'ga bog‘lanmaydi.
+
+Alohida:
+
+ai/
+
+moduli.
+
+Masalan:
+
+document summarization
+rewrite
+translation
+grammar correction
+Excel formula assistant
+document Q&A
+
+Ammo AI internet bo‘lmasa ham asosiy Office funksiyalariga xalaqit bermasligi kerak.
+
+49. Final architecture
+
+Yakuniy holatda:
+
+                    Android App
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+             UI                  Navigation
+              │
+          ViewModels
+              │
+           UseCases
+              │
+         Repositories
+              │
+       ┌──────┴───────┐
+       │              │
+ File System       Document Engine
+       │              │
+      SAF      ┌──────┼────────┐
+               │      │        │
+            DOCX    XLSX      PDF
+               │      │        │
+               └── Libre ─────┘
+                  Office
+50. AI Coding Agent bilan ishlash tartibi
+
+Bu loyiha uchun agentga:
+
+"Build the whole application"
+
+deyish to‘g‘ri emas.
+
+Agentga kichik, tekshiriladigan tasklar beriladi.
+
+Masalan:
+
+TASK-001
+Create Android project architecture
+
+Keyin:
+
+TASK-002
+Create core filesystem module
+
+Keyin:
+
+TASK-003
+Implement SAF OpenDocument
+
+Keyin:
+
+TASK-004
+Implement RecentFiles repository
+
+va hokazo.
+
+Har bir task:
+
+Goal
+Files to create
+Files to modify
+Dependencies
+Implementation requirements
+Tests
+Acceptance criteria
+
+bilan beriladi.
+
+51. Agent uchun qat'iy qoidalar
+
+Coding agent quyidagilarni buzmasligi kerak:
+
+Rule 1
+
+UI ichiga document engine logic yozmasin.
+
+Rule 2
+
+Document engine ichiga Compose dependency qo‘shmasin.
+
+Rule 3
+
+Domain Android framework'ga bog‘lanmasin.
+
+Rule 4
+
+Katta fayllarni ByteArray sifatida RAM'ga to‘liq yuklamasin.
+
+Rule 5
+
+Barcha background operatsiyalar coroutine orqali bajarilsin.
+
+Rule 6
+
+Har bir yangi feature uchun test yozilsin.
+
+Rule 7
+
+Mavjud API'ni sababsiz buzmasin.
+
+Rule 8
+
+Build ishlamayotgan holatda keyingi feature'ga o'tmasin.
+
+Rule 9
+
+Har bir phase yakunida APK build qilinsin.
+
+Rule 10
+
+Har bir engine alohida adapter orqali ulanadi.
+
+52. Definition of Done
+
+Har bir task quyidagi shartlarga javob bergandagina tugallangan hisoblanadi:
+
+☑ Code implemented
+☑ Compilation successful
+☑ Unit tests passed
+☑ UI tests where applicable
+☑ No obvious memory leak
+☑ Error handling implemented
+☑ Logging implemented
+☑ Architecture rules respected
+☑ APK successfully generated
+53. MVP yakuniy ko‘rinishi
+
+Birinchi katta milestone quyidagicha bo‘ladi:
+
+                    OFFICE APP
+                        │
+        ┌───────────────┼──────────────┐
+        │               │              │
+       DOCX            XLSX           PDF
+        │               │              │
+      Open             Open           Open
+      Edit             Edit           View
+      Save             Save           Annotate
+        │               │              │
+        └───────────────┼──────────────┘
+                        │
+                     SAF
+                        │
+                  Android Storage
+
+Ya'ni birinchi katta versiyada:
+
+DOCX
+
+Open
+Edit
+Format
+Save
+
+XLSX
+
+Open
+Edit cells
+Formula
+Save
+
+PDF
+
+Open
+View
+Zoom
+Search
+Annotation
+Save
+
+ishlashi kerak.
+
+54. Eng muhim texnik qaror
+
+Men bu loyiha uchun quyidagi yo‘lni yakuniy tavsiya qilaman:
+
+                    Kotlin
+                      │
+                 Jetpack Compose
+                      │
+              Clean Architecture
+                      │
+                    MVVM
+                      │
+               Document Engine API
+                      │
+        ┌─────────────┴─────────────┐
+        │                           │
+ LibreOffice/LOKit                PDF Engine
+        │                           │
+      JNI                         Native
+        │                           │
+        └──────────── Android ──────┘
+
+Apache POI/docx4j asosiy editor sifatida emas, balki ayrim metadata, parsing, conversion yoki fallback vazifalarida ishlatilishi mumkin.
+
+55. Rivojlanish muddatiga real baho
+
+
+Eng katta noaniqlik — LibreOffice engine'ni Android bilan qanchalik sifatli integratsiya qilish. Shu sababli men aynan shu qismni Phase 0–3 da eng birinchi katta risk sifatida tekshirishni tavsiya qilaman.
+
+Yakuniy natija
+
+Bu loyiha oddiy "DOCX/XLSX fayl o‘qiydigan Android dastur" emas, balki quyidagi platformaga aylanadi:
+
+                Professional Office Platform
+                           │
+        ┌──────────────────┼──────────────────┐
+        │                  │                  │
+    Document             Spreadsheet         PDF
+      Engine               Engine           Engine
+        │                  │                  │
+        └──────────────────┼──────────────────┘
+                           │
+                     Common Engine API
+                           │
+                       Domain Layer
+                           │
+                    Android Application
+                           │
+              ┌────────────┼────────────┐
+              │            │            │
+             SAF         Cloud          AI
+              │            │            │
+          Local files   Nextcloud     AI Assistant

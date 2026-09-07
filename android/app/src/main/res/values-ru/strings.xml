@@ -1,0 +1,106 @@
+<resources>
+    <string name="app_name">Office Pro</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">Главная</string>
+    <string name="nav_docx">Word (DOCX)</string>
+    <string name="nav_xlsx">Excel (XLSX)</string>
+    <string name="nav_pdf">Просмотр PDF</string>
+    <string name="nav_storage">Файлы SAF</string>
+    
+    <!-- Home Dashboard -->
+    <string name="tag_offline">Автономный движок</string>
+    <string name="dashboard_hero_title">Профессиональный Android Office</string>
+    <string name="dashboard_hero_sub">Полностью автономный офисный редактор на базе LibreOffice Core и PDFium</string>
+    <string name="new_document">Новый документ</string>
+    <string name="new_spreadsheet">Новая таблица</string>
+    <string name="new_pdf">Новый PDF</string>
+    <string name="recent_files">Недавние файлы</string>
+    <string name="recent_sub">Локальные файлы в кэше Room Database</string>
+    <string name="open_saf">Открыть через SAF</string>
+    <string name="filter_all">Все</string>
+    
+    <!-- Creation Card Subtitles -->
+    <string name="card_docx_sub">Отчеты, заявления и статьи</string>
+    <string name="card_xlsx_sub">Бюджет, формулы и виртуальная сетка</string>
+    <string name="card_pdf_sub">Отрисовка PDFium и заметки/подпись</string>
+    
+    <!-- Common Actions & Statuses -->
+    <string name="save">Сохранить</string>
+    <string name="saved_status">Сохранено (Автосохранение)</string>
+    <string name="saving_status">Сохранение...</string>
+    <string name="undo">Отменить</string>
+    <string name="redo">Повторить</string>
+    <string name="share">Поделиться</string>
+    <string name="search_placeholder">Поиск документов, текста или формул...</string>
+    
+    <!-- DOCX Editor Toolbar Tabs -->
+    <string name="tab_home">Главная</string>
+    <string name="tab_insert">Вставка</string>
+    <string name="tab_layout">Разметка</string>
+    <string name="tab_view">Вид</string>
+    <string name="insert_table">Вставить таблицу</string>
+    <string name="page_counter">Страница 1 из 3 • 142 слова • 100% Масштаб</string>
+    <string name="sample_docx_title">План инновационного проекта Республики Узбекистан</string>
+    <string name="sample_docx_type">Тип документа: Профессиональная платформа Android Office (DOCX Engine)</string>
+    <string name="sample_docx_h1">1. Основы архитектуры и LibreOfficeKit</string>
+    <string name="sample_docx_p1">Данный документ отображается в соответствии с принципами чистой архитектуры (Clean Architecture) и независимости движка, описанными в reja.txt. Работает на 100% оффлайн через Kotlin JNI и LibreOfficeKit.</string>
+    <string name="sample_docx_note_title">Критическое правило (reja.txt 2.4):</string>
+    <string name="sample_docx_note_p">При открытии больших файлов DOCX (100 МБ) весь файл не загружается целиком в оперативную память. Вместо этого он отображается фрагментами через SurfaceView и Tile Rendering.</string>
+    <string name="sample_docx_table_h">2. Таблица этапов реализации</string>
+    <string name="th_module">Модуль</string>
+    <string name="th_engine">Движок</string>
+    <string name="th_status">Статус</string>
+    <string name="th_memory">Лимит памяти</string>
+    <string name="status_ready">Готово</string>
+    <string name="status_poc">В этапе PoC</string>
+    <string name="status_active">Активно</string>
+
+    <!-- Spreadsheet -->
+    <string name="formula_bar_hint">Введите формулу (напр. =SUM(B2:B5) или значение)</string>
+    <string name="add_row">+ Строка</string>
+    <string name="add_column">+ Столбец</string>
+    <string name="auto_sum">Авто-Сумма</string>
+    <string name="sheet1_tab">Лист 1 (Бюджет)</string>
+    <string name="sheet2_tab">Лист 2 (Прогноз)</string>
+    <string name="sum_label">Сумма выбранного:</string>
+    <string name="virtual_grid_indicator">⚡ Виртуальная сетка (до 1 000 000 строк)</string>
+
+    <!-- PDF Viewer -->
+    <string name="pdf_select">Выделение</string>
+    <string name="pdf_highlight">Маркер</string>
+    <string name="pdf_pen">Перо</string>
+    <string name="pdf_note">Заметка</string>
+    <string name="pdf_sign">Подпись</string>
+    <string name="pdf_signed_badge">✓ ПОДТВЕРЖДЕНО И ПОДПИСАНО - 2026</string>
+    <string name="pdf_sig_placeholder">Область подписи (нажмите для подписи)</string>
+    <string name="pdf_doc_badge">СТАНДАРТ РЕСПУБЛИКИ УЗБЕКИСТАН</string>
+    <string name="pdf_doc_title">СЛУЖЕБНЫЙ АКТ № 9482-B</string>
+    <string name="pdf_doc_date">Дата: 07 сентября 2026 г.</string>
+    <string name="pdf_sample_p1">Данный документ подтверждает кросс-компиляцию библиотеки PDFium и вывод страниц в виде кэшированных растровых изображений на Android.</string>
+
+    <!-- SAF & Permissions -->
+    <string name="saf_title">Безопасная файловая система (SAF)</string>
+    <string name="saf_sub">Разделы 7 и 28 reja.txt: Без лишних разрешений, работа только с выбранными файлами через content:// URI.</string>
+    <string name="saf_open_doc">ACTION_OPEN_DOCUMENT</string>
+    <string name="saf_open_sub">Выбор любого файла DOCX, XLSX или PDF из памяти телефона</string>
+    <string name="saf_create_doc">ACTION_CREATE_DOCUMENT</string>
+    <string name="saf_create_sub">Создание нового пустого документа с постоянным системным разрешением</string>
+    <string name="saf_tree_doc">ACTION_OPEN_DOCUMENT_TREE</string>
+    <string name="saf_tree_sub">Доступ к целой папке через takePersistableUriPermission</string>
+    <string name="saf_table_title">Активные постоянные разрешения (takePersistableUriPermission)</string>
+    <string name="saf_persisted">Постоянное (Persisted)</string>
+
+    <!-- Crash Recovery Dialog -->
+    <string name="recovery_title">Crash Recovery — Найден восстановленный черновик!</string>
+    <string name="recovery_body">Приложение могло неожиданно закрыться. В кэше автосохранения сохранилось последнее состояние:</string>
+    <string name="btn_discard">Отклонить</string>
+    <string name="btn_restore">Восстановить документ</string>
+
+    <!-- Device & Theme -->
+    <string name="device_mode">Режим устройства:</string>
+    <string name="mode_mobile">Телефон</string>
+    <string name="mode_tablet">Планшет</string>
+    <string name="theme_dark">Тёмная тема</string>
+    <string name="theme_light">Светлая тема</string>
+</resources>

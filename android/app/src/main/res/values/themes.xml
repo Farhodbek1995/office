@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Base application theme for the Compose-only app.
+        The actual colors are provided by MaterialTheme in Compose (core:ui Theme.kt),
+        so the platform theme only needs to be a NoActionBar Material theme.
+    -->
+    <style name="Theme.OfficeAndroid" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>
